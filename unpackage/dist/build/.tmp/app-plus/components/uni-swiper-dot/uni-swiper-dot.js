@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/uni-swiper-dot/uni-swiper-dot"],{"1ec4":function(t,e,n){"use strict";n.r(e);var i=n("5a29"),o=n.n(i);for(var s in i)"default"!==s&&function(t){n.d(e,t,function(){return i[t]})}(s);e["default"]=o.a},"5a29":function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i={name:"uni-swiper-dot",props:{info:{type:Array,default:function(){return[]}},current:{type:Number,default:function(){return 0}},dotsStyles:{type:Object,default:function(){return{}}},mode:{type:String,default:"default"},field:{type:String,default:""}},data:function(){return{dots:{width:4,height:4,bottom:6,color:"#fff",backgroundColor:"rgba(255, 255, 255, .3)",selectedBackgroundColor:"#FFF"}}},created:function(){"indexes"===this.mode&&(this.dots.width=20,this.dots.height=20),this.dots=Object.assign(this.dots,this.dotsStyles)},watch:{dotsStyles:function(t){this.dots=Object.assign(this.dots,this.dotsStyles)},mode:function(t){"indexes"===t?(this.dots.width=20,this.dots.height=20):(this.dots.width=8,this.dots.height=8)}}};e.default=i},"7f1a":function(t,e,n){"use strict";var i=n("a9bc"),o=n.n(i);o.a},"88a2":function(t,e,n){"use strict";var i=function(){var t=this,e=t.$createElement;t._self._c},o=[];n.d(e,"a",function(){return i}),n.d(e,"b",function(){return o})},a9bc:function(t,e,n){},e0bc:function(t,e,n){"use strict";n.r(e);var i=n("88a2"),o=n("1ec4");for(var s in o)"default"!==s&&function(t){n.d(e,t,function(){return o[t]})}(s);n("7f1a");var u=n("2877"),r=Object(u["a"])(o["default"],i["a"],i["b"],!1,null,null,null);e["default"]=r.exports}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'components/uni-swiper-dot/uni-swiper-dot-create-component',
+    {
+        'components/uni-swiper-dot/uni-swiper-dot-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('6e42')['createComponent'](__webpack_require__("e0bc"))
+        })
+    },
+    [['components/uni-swiper-dot/uni-swiper-dot-create-component']]
+]);                
