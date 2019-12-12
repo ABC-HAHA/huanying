@@ -253,7 +253,11 @@
 				ad_center_video_image:false,
 				countDownTime:5,
 				advertisementStatus :false,
-                advertArr: []
+                advertArr: [],
+				adverVideoStatus:false, //播放视频广告的状态
+				videoPlayUrl:'',// 要播放的视频
+				adverVideoUrl:''//  广告视频
+				
 			}
 		},
 		onLoad(options) {
@@ -281,6 +285,7 @@
 					url: self.websiteUrl + '/api/home/play?vodId='+self.vodId + '&userId=' + uid ,
 					success: (res) => {
 						self.allsuccessData = res.data;
+						console.log(self.allsuccessData);
 						if(self.allsuccessData){
 							if(self.allsuccessData.visitInfo){
 								self.initialTime = self.allsuccessData.visitInfo.playTime;
@@ -295,7 +300,20 @@
 							}else{
 								self.playTvImg = self.allsuccessData.vodPicThumb;
 							}
-							self.playTvSrc = self.allsuccessData.vodPlayUrl[self.tabIndex].playUrl;
+							if(self.allsuccessData.advertVideo){
+								var advertAferVideo = self.allsuccessData.advertVideo;
+								self.adverVideoUrl =  advertAferVideo[Math.floor(Math.random() *  advertAferVideo.length + 1)-1].advertPath;
+								self.videoPlayUrl = self.allsuccessData.vodPlayUrl[self.tabIndex].playUrl;
+								self.playTvSrc = self.adverVideoUrl;
+								self.adverVideoStatus = true;
+								console.log(888888888888888888888);
+								console.log(self.adverVideoUrl);
+								console.log(7777777777777777777);
+								console.log(self.videoPlayUrl);
+							}else{
+								self.videoPlayUrl = self.allsuccessData.vodPlayUrl[self.tabIndex].playUrl;
+								self.playTvSrc = self.videoPlayUrl;
+							}
 							self.currentCommentMid = self.allsuccessData.typeId1;
 							if(self.allsuccessData.vodPlayUrl && self.allsuccessData.vodPlayUrl.length>1){
 								self.select_status = true;
@@ -319,7 +337,9 @@
 							}
                             if (self.allsuccessData.advertInfo) {
                                 self.advertArr = self.allsuccessData.advertInfo;
+								// self.adverAfterUrl =  self.advertArr[Math.floor(Math.random() *  self.advertArr.length + 1)-1].
                             }
+							
 						}	
 					}
 				});
@@ -404,7 +424,13 @@
             },
 			async toXuanji(e) { //点击tab-bar
 				let tabIndex = e.currentTarget.id;
-				this.playTvSrc = this.allsuccessData.vodPlayUrl[tabIndex].playUrl;
+				if(this.adverVideoUrl){
+					this.playTvSrc  = this.adverVideoUrl;
+					this.videoPlayUrl = this.allsuccessData.vodPlayUrl[tabIndex].playUrl;
+				}else{
+					this.videoPlayUrl = this.allsuccessData.vodPlayUrl[tabIndex].playUrl;
+					this.playTvSrc =this.videoPlayUrl;
+				}
 				if (this.tabIndex === tabIndex) {
 					return false;
 				} else {
@@ -417,11 +443,46 @@
 			},
 			// 播放结束
 			videoEnd(){
-				if(this.select_status){
-					this.tabIndex++;
-					this.playTvSrc = this.allsuccessData.vodPlayUrl[this.tabIndex].playUrl;
+				if(this.adverVideoUrl  && this.adverVideoStatus){
+					this.adverVideoStatus =false;
+					this.playTvSrc = this.videoPlayUrl;
 					this.videoContext.play();
+				}else{
+					if(this.select_status){
+						this.tabIndex++;
+						if(this.adverVideoUrl){
+							this.adverVideoStatus =true;
+							this.playTvSrc  = this.adverVideoUrl;
+							this.videoPlayUrl =this.allsuccessData.vodPlayUrl[this.tabIndex].playUrl; 
+							this.videoContext.play();
+						}else{
+							this.videoPlayUrl =this.allsuccessData.vodPlayUrl[this.tabIndex].playUrl; 
+							this.playTvSrc  = this.videoPlayUrl;
+							this.videoContext.play();
+						}
+					}
 				}
+				// if(this.adverVideoUrl  && this.adverVideoStatus){
+				// 	this.adverVideoStatus =false;
+				// 	if(this.select_status){
+				// 		this.tabIndex++;
+				// 		this.playTvSrc = this.allsuccessData.vodPlayUrl[this.tabIndex].playUrl;
+				// 		this.videoContext.play();
+				// 	}else{
+				// 		this.playTvSrc = this.allsuccessData.vodPlayUrl[this.tabIndex].playUrl;
+				// 		this.videoContext.play();
+				// 	}
+				// }else{
+				// 	if(this.adverVideoUrl ){
+				// 		this.adverVideoStatus =true;
+				// 		this.playTvSrc = this.adverVideoUrl;
+				// 		this.videoContext.play();
+				// 	}else{
+				// 		this.playTvSrc = this.allsuccessData.vodPlayUrl[this.tabIndex].playUrl;
+				// 		this.videoContext.play();
+				// 	}
+				// }
+				
 			},
 			fullscreenchangeback(e){
                 this.isFullscreen = e.detail.fullScreen;

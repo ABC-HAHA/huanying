@@ -364,7 +364,7 @@
 	}
 	.modules{
         width: 750upx;
-		margin-top: 204upx;
+		margin-top: 404upx;
         overflow: hidden;
 	}
 	.swiper-box {

@@ -117,7 +117,7 @@ swiper {
 .wuc-tab.fixed {
 	position: fixed;
 	width: 660upx;
-	top: 120upx;
+	top: 320upx;
 	left: 28upx;
 	z-index: 1024;
 }

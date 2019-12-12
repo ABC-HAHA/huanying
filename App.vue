@@ -84,6 +84,7 @@
                         success: res => {
                             let data = res.data;
 							 console.log(versionNum);
+							 console.log(res);
 							 if(data.data){
 								 	var currentVersion  = data.data.versionName;
 							 }
@@ -175,6 +176,7 @@
                                         });
                                     }
                                     if (data.data.path != '') {
+										console.log('ok')
                                         uni.showModal({
                                             title: '发现新版本',
                                             content: '有新的版本发布，检测到您当前为非Wifi连接，是否立即进行新版本下载？',
